@@ -5,19 +5,24 @@
 struct my_pair
 {
     const char first;
-    const unsigned int second;
+    int second;
 
-    my_pair(const char first, const unsigned int second) :
-        first(first),
-        second(second)
+    my_pair(std::pair<const char, int> obj) :
+        first(obj.first),
+        second(obj.second)
     {}
     virtual ~my_pair()
     {}
 
-    bool operator<(my_pair& r)
+    const bool operator<(const my_pair& r) const
     {
         return second < r.second;
     }
+
+    // const bool operator>(const my_pair& r) const
+    // {
+    //     return second > r.second;
+    // }
 };
 
 int main(int argc, char const *argv[])
@@ -42,7 +47,7 @@ int main(int argc, char const *argv[])
         symvol_count[chars[i]] += 1;
     }
 
-    std::set<my_pair> sort_map_max;
+    std::set<my_pair> sort_map_max(symvol_count.begin(), symvol_count.end());
 
     std::cout << out_lable << row_div;
     for (auto const &elem : sort_map_max)
@@ -52,4 +57,3 @@ int main(int argc, char const *argv[])
 
     return 0;
 }
-
