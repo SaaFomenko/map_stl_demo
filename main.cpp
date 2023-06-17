@@ -2,17 +2,21 @@
 #include <map>
 #include <set>
 
-struct max_compare
+struct my_pair
 {
-    template<class T>
-    bool operator()(const T &l, const T &r) const
-    {
-        if (l.second != r.second)
-        {
-            return l.second > r.second;
-        }
+    const char first;
+    const unsigned int second;
 
-        return l.first < r.first;
+    my_pair(const char first, const unsigned int second) :
+        first(first),
+        second(second)
+    {}
+    virtual ~my_pair()
+    {}
+
+    bool operator<(my_pair& r)
+    {
+        return second < r.second;
     }
 };
 
@@ -38,7 +42,7 @@ int main(int argc, char const *argv[])
         symvol_count[chars[i]] += 1;
     }
 
-    std::set<std::pair<const char, int>, max_compare> sort_map_max(symvol_count.begin(), symvol_count.end());
+    std::set<my_pair> sort_map_max;
 
     std::cout << out_lable << row_div;
     for (auto const &elem : sort_map_max)
