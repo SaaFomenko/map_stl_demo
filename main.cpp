@@ -16,13 +16,15 @@ struct my_pair
 
     const bool operator<(const my_pair& r) const
     {
-        return second < r.second;
+        if (second != r.second) return second > r.second;
+        return first < r.first;
     }
 
-    // const bool operator>(const my_pair& r) const
-    // {
-    //     return second > r.second;
-    // }
+    const bool operator>(const my_pair& r) const
+    {
+       if (second != r.second) return second > r.second;
+       return first > r.first;
+    }
 };
 
 int main(int argc, char const *argv[])
@@ -32,10 +34,10 @@ int main(int argc, char const *argv[])
     const char* col_div = ": ";
     const char row_div = '\n';
 
-    std::string text = "";
+    std::string text = "Hello world!!";
 
-    std::cout << in_lable;
-    std::getline(std::cin, text);
+    std::cout << in_lable << text << '\n';
+    //std::getline(std::cin, text);
 
     const unsigned int size = text.length();
     const char* chars = text.c_str();
